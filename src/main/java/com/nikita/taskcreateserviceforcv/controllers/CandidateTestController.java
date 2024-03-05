@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("/api/tests")
+@RequestMapping("/api/candidates_tests")
 @RequiredArgsConstructor
-public class TestController extends MainController {
-
+public class CandidateTestController extends MainController {
 }
