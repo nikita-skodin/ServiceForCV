@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public abstract class MainController {
     }
 
     @ExceptionHandler
-    protected ResponseEntity<ExceptionDTO> handleException(ConstraintViolationException e) {
+    protected ResponseEntity<ExceptionDTO> handleConstraintViolationException(ConstraintViolationException e) {
 
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
 
@@ -41,6 +42,14 @@ public abstract class MainController {
                 .status(400)
                 .body(new ExceptionDTO("BAD_REQUEST", response.toString().trim()));
     }
+
+    @ExceptionHandler
+    protected ResponseEntity<ExceptionDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        return ResponseEntity
+                .status(e.getStatusCode())
+                .body(new ExceptionDTO(e.getStatusCode().toString(), e.getMessage().trim()));
+    }
+
 
 
 }
