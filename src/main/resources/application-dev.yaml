@@ -1,0 +1,24 @@
+server:
+  port: 8085
+
+spring:
+  datasource:
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/ServiceForCv-db
+
+  sql:
+    init:
+      mode: never
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: false
