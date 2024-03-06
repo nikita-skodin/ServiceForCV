@@ -2,8 +2,10 @@ package com.nikita.taskcreateserviceforcv.controllers;
 
 import com.nikita.taskcreateserviceforcv.DTOs.AreaDTO;
 import com.nikita.taskcreateserviceforcv.entities.Area;
+import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import com.nikita.taskcreateserviceforcv.services.AreaService;
 import com.nikita.taskcreateserviceforcv.util.mappers.AreaMapper;
+import com.nikita.taskcreateserviceforcv.util.validators.AreaValidator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AreaController extends MainController {
 
+    AreaValidator areaValidator;
     AreaService areaService;
     AreaMapper areaMapper;
 
@@ -36,18 +40,31 @@ public class AreaController extends MainController {
     }
 
     @PostMapping
-    public ResponseEntity<AreaDTO> create(@Valid @RequestBody AreaDTO areaDTO) {
-        areaDTO.setId(null);
+    public ResponseEntity<AreaDTO> create(@Valid @RequestBody AreaDTO areaDTO, BindingResult bindingResult) {
+
+        if (areaDTO.getId() != null) {
+            throw new BadRequestException("A new area cannot has an id");
+        }
+
         Area area = areaMapper.getEntity(areaDTO);
 
-        Area savedArea = areaService.save(area);
+        areaValidator.validate(area, bindingResult);
+        checkBindingResult(bindingResult);
 
+        Area savedArea = areaService.save(area);
         return ResponseEntity.ok(areaMapper.getDTO(savedArea));
     }
 
     @PutMapping
-    public ResponseEntity<AreaDTO> update(@Valid @RequestBody AreaDTO areaDTO) {
+    public ResponseEntity<AreaDTO> update(@Valid @RequestBody AreaDTO areaDTO, BindingResult bindingResult) {
+        if (areaDTO.getId() == null) {
+            throw new BadRequestException("Updatable area must has an id");
+        }
+
         Area area = areaMapper.getEntity(areaDTO);
+
+        areaValidator.validate(area, bindingResult);
+        checkBindingResult(bindingResult);
 
         Area updatedArea = areaService.update(area);
 

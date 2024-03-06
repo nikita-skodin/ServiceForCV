@@ -2,6 +2,7 @@ package com.nikita.taskcreateserviceforcv.controllers;
 
 import com.nikita.taskcreateserviceforcv.DTOs.CandidateDTO;
 import com.nikita.taskcreateserviceforcv.entities.Candidate;
+import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import com.nikita.taskcreateserviceforcv.services.CandidateService;
 import com.nikita.taskcreateserviceforcv.util.mappers.CandidateMapper;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,8 +43,18 @@ public class CandidateController extends MainController {
 
     @PostMapping
     public ResponseEntity<CandidateDTO> create(@Valid @RequestBody CandidateDTO candidateDTO) {
-        candidateDTO.setId(null);
+
+        if (candidateDTO.getId() != null) {
+            throw new BadRequestException("A new Candidate cannot has an id");
+        }
+
         Candidate candidate = candidateMapper.getEntity(candidateDTO);
+
+        boolean isExists = candidateService.exists(Example.of(candidate));
+
+        if (isExists) {
+            throw new BadRequestException("The same Candidate is already exists");
+        }
 
         Candidate savedCandidate = candidateService.save(candidate);
 
@@ -51,7 +63,18 @@ public class CandidateController extends MainController {
 
     @PutMapping
     public ResponseEntity<CandidateDTO> update(@Valid @RequestBody CandidateDTO candidateDTO) {
+
+        if (candidateDTO.getId() == null) {
+            throw new BadRequestException("Updatable Candidate must has an id");
+        }
+
         Candidate candidate = candidateMapper.getEntity(candidateDTO);
+
+        boolean isExists = candidateService.exists(Example.of(candidate));
+
+        if (isExists) {
+            throw new BadRequestException("The same Candidate is already exists");
+        }
 
         Candidate updatedCandidate = candidateService.update(candidate);
 

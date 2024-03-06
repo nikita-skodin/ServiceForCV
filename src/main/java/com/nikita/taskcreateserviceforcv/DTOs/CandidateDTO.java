@@ -6,7 +6,10 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -39,5 +42,5 @@ public class CandidateDTO {
     // TODO
     byte[] cvFile;
 
-    List<AreaDTO> possibleAreas;
+    Set<AreaDTO> possibleAreas = new HashSet<>();
 }

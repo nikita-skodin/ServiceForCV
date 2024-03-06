@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,16 +50,12 @@ public class AreaService {
         return areaPagingAndSortingRepository.findAll(spec, PageRequest.of(offset, limit));
     }
 
+    public Optional<Area> findByTitle(String title) {
+        return areaJpaRepository.findByTitle(title);
+    }
+
     @Transactional
     public <S extends Area> S save(S entity) {
-
-        Long id = entity.getId();
-
-        // TODO extract to validator
-//        if (areaJpaRepository.findById(id).isPresent()) {
-//            throw new BadRequestException("Area with id %d is already exists".formatted(id));
-//        }
-
         return areaJpaRepository.save(entity);
     }
 

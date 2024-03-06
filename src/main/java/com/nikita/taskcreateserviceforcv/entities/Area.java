@@ -1,15 +1,18 @@
 package com.nikita.taskcreateserviceforcv.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"applicableTests", "candidatesForArea"})
 @Entity
 @Table(name = "areas")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,8 +28,8 @@ public class Area {
     String description;
 
     @ManyToMany(mappedBy = "applicableAreas")
-    List<Test> applicableTests;
+    Set<Test> applicableTests = new HashSet<>();
 
     @ManyToMany(mappedBy = "possibleAreas")
-    List<Candidate> candidatesForArea;
+    List<Candidate> candidatesForArea = new ArrayList<>();
 }

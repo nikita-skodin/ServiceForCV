@@ -2,8 +2,10 @@ package com.nikita.taskcreateserviceforcv.controllers;
 
 import com.nikita.taskcreateserviceforcv.DTOs.TestDTO;
 import com.nikita.taskcreateserviceforcv.entities.Test;
+import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import com.nikita.taskcreateserviceforcv.services.TestService;
 import com.nikita.taskcreateserviceforcv.util.mappers.TestMapper;
+import com.nikita.taskcreateserviceforcv.util.validators.TestValidator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TestController extends MainController {
 
+    TestValidator testValidator;
     TestService testService;
     TestMapper testMapper;
 
@@ -36,9 +40,16 @@ public class TestController extends MainController {
     }
 
     @PostMapping
-    public ResponseEntity<TestDTO> create(@Valid @RequestBody TestDTO testDTO) {
-        testDTO.setId(null);
+    public ResponseEntity<TestDTO> create(@Valid @RequestBody TestDTO testDTO, BindingResult bindingResult) {
+
+        if (testDTO.getId() != null) {
+            throw new BadRequestException("A new test cannot has an id");
+        }
+
         Test test = testMapper.getEntity(testDTO);
+
+        testValidator.validate(test, bindingResult);
+        checkBindingResult(bindingResult);
 
         Test savedTest = testService.save(test);
 
@@ -46,8 +57,16 @@ public class TestController extends MainController {
     }
 
     @PutMapping
-    public ResponseEntity<TestDTO> update(@Valid @RequestBody TestDTO testDTO) {
+    public ResponseEntity<TestDTO> update(@Valid @RequestBody TestDTO testDTO, BindingResult bindingResult) {
+
+        if (testDTO.getId() == null) {
+            throw new BadRequestException("Updatable test must has an id");
+        }
+
         Test test = testMapper.getEntity(testDTO);
+
+        testValidator.validate(test, bindingResult);
+        checkBindingResult(bindingResult);
 
         Test updatedTest = testService.update(test);
 

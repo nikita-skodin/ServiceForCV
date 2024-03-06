@@ -14,8 +14,10 @@ public class CandidateTestDTO {
 
     Long id;
 
+    @NotNull
     CandidateDTO candidate;
 
+    @NotNull
     TestDTO test;
 
     @NotNull

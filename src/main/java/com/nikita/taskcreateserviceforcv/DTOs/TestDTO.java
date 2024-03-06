@@ -6,7 +6,9 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -23,6 +25,6 @@ public class TestDTO {
             message = "description`s length must be less than 1000 chars")
     String description;
 
-    List<AreaDTO> applicableAreas;
+    Set<AreaDTO> applicableAreas = new HashSet<>();
 
 }

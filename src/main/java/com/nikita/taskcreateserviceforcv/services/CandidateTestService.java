@@ -1,6 +1,8 @@
 package com.nikita.taskcreateserviceforcv.services;
 
+import com.nikita.taskcreateserviceforcv.entities.Candidate;
 import com.nikita.taskcreateserviceforcv.entities.CandidateTest;
+import com.nikita.taskcreateserviceforcv.entities.Test;
 import com.nikita.taskcreateserviceforcv.exceptions.NotFoundException;
 import com.nikita.taskcreateserviceforcv.repositories.CandidateTestJpaRepository;
 import com.nikita.taskcreateserviceforcv.repositories.CandidateTestPagingAndSortingRepository;
@@ -8,6 +10,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,6 +27,9 @@ public class CandidateTestService {
 
     private final CandidateTestJpaRepository candidateTestJpaRepository;
     private final CandidateTestPagingAndSortingRepository candidateTestPagingAndSortingRepository;
+
+    private final CandidateService candidateService;
+    private final TestService testService;
 
     public CandidateTest findById(Long aLong) {
         return candidateTestJpaRepository.findById(aLong).orElseThrow(() ->
@@ -71,23 +77,34 @@ public class CandidateTestService {
         return candidateTestPagingAndSortingRepository.findAll(spec, PageRequest.of(offset, limit));
     }
 
+    public <S extends CandidateTest> boolean exists(Example<S> example) {
+        return candidateTestJpaRepository.exists(example);
+    }
 
     @Transactional
     public <S extends CandidateTest> S save(S entity) {
 
-        Long id = entity.getId();
+        Test test = testService.findById(entity.getTest().getId());
+        Candidate candidate = candidateService.findById(entity.getCandidate().getId());
 
-        // TODO extract to validator
-//        if (candidateTestJpaRepository.findById(id).isPresent()) {
-//            throw new BadRequestException("CandidateTest with id %d is already exists".formatted(id));
-//        }
+        entity.setTest(test);
+        entity.setCandidate(candidate);
+
+        test.getAttemptsList().add(entity);
+        candidate.getCandidateTests().add(entity);
 
         return candidateTestJpaRepository.save(entity);
     }
 
     @Transactional
     public <S extends CandidateTest> S update(S entity) {
+
+        Test test = testService.findById(entity.getTest().getId());
+        Candidate candidate = candidateService.findById(entity.getCandidate().getId());
+
+        test.getAttemptsList().add(entity);
+        candidate.getCandidateTests().add(entity);
+
         return candidateTestJpaRepository.save(entity);
     }
-
 }

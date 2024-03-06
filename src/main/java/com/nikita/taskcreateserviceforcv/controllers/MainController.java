@@ -7,6 +7,7 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,9 +48,22 @@ public abstract class MainController {
 
     @ExceptionHandler
     protected ResponseEntity<ExceptionDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+
+        BindingResult result = e.getBindingResult();
+
+        StringBuilder message = new StringBuilder("Invalid request parameters. Please fix the following issues:\n");
+
+        for (FieldError error : result.getFieldErrors()) {
+            String field = error.getField();
+            Object rejectedValue = error.getRejectedValue();
+            String defaultMessage = error.getDefaultMessage();
+
+            message.append(String.format("Field '%s' with value '%s': %s\n", field, rejectedValue, defaultMessage));
+        }
+
         return ResponseEntity
                 .status(e.getStatusCode())
-                .body(new ExceptionDTO(e.getStatusCode().toString(), e.getMessage().trim()));
+                .body(new ExceptionDTO(e.getStatusCode().toString(), message.toString()));
     }
 
     @ExceptionHandler
@@ -61,7 +75,6 @@ public abstract class MainController {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ExceptionDTO("BAD_REQUEST 400", message));
     }
-
 
 
 }

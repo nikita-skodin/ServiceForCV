@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class CandidateMapper {
@@ -16,13 +18,13 @@ public class CandidateMapper {
 
     public Candidate getEntity(CandidateDTO candidateDTO) {
         Candidate map = modelMapper.map(candidateDTO, Candidate.class);
-        map.setPossibleAreas(candidateDTO.getPossibleAreas().stream().map(areaMapper::getEntity).toList());
+        map.setPossibleAreas(candidateDTO.getPossibleAreas().stream().map(areaMapper::getEntity).collect(Collectors.toSet()));
         return map;
     }
 
     public CandidateDTO getDTO(Candidate candidate) {
         CandidateDTO map = modelMapper.map(candidate, CandidateDTO.class);
-        map.setPossibleAreas(candidate.getPossibleAreas().stream().map(areaMapper::getDTO).toList());
+        map.setPossibleAreas(candidate.getPossibleAreas().stream().map(areaMapper::getDTO).collect(Collectors.toSet()));
         return map;
     }
 

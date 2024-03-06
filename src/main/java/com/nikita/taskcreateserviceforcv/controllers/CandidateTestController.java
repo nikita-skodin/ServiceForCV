@@ -2,6 +2,7 @@ package com.nikita.taskcreateserviceforcv.controllers;
 
 import com.nikita.taskcreateserviceforcv.DTOs.CandidateTestDTO;
 import com.nikita.taskcreateserviceforcv.entities.CandidateTest;
+import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import com.nikita.taskcreateserviceforcv.services.CandidateTestService;
 import com.nikita.taskcreateserviceforcv.util.mappers.CandidateTestMapper;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -53,8 +55,18 @@ public class CandidateTestController extends MainController {
 
     @PostMapping
     public ResponseEntity<CandidateTestDTO> create(@Valid @RequestBody CandidateTestDTO candidateTestDTO) {
-        candidateTestDTO.setId(null);
+
+        if (candidateTestDTO.getId() != null) {
+            throw new BadRequestException("A new CandidateTest cannot has an id");
+        }
+
         CandidateTest candidateTest = candidateTestMapper.getEntity(candidateTestDTO);
+
+        boolean isExists = candidateTestService.exists(Example.of(candidateTest));
+
+        if (isExists){
+            throw new BadRequestException("CandidateTest is already exists");
+        }
 
         CandidateTest savedCandidateTest = candidateTestService.save(candidateTest);
 
@@ -63,6 +75,11 @@ public class CandidateTestController extends MainController {
 
     @PutMapping
     public ResponseEntity<CandidateTestDTO> update(@Valid @RequestBody CandidateTestDTO candidateTestDTO) {
+
+        if (candidateTestDTO.getId() == null) {
+            throw new BadRequestException("Updatable CandidateTest must has an id");
+        }
+
         CandidateTest candidateTest = candidateTestMapper.getEntity(candidateTestDTO);
 
         CandidateTest updatedCandidateTest = candidateTestService.update(candidateTest);

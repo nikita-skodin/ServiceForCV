@@ -1,5 +1,6 @@
 package com.nikita.taskcreateserviceforcv.services;
 
+import com.nikita.taskcreateserviceforcv.entities.Area;
 import com.nikita.taskcreateserviceforcv.entities.Test;
 import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import com.nikita.taskcreateserviceforcv.exceptions.NotFoundException;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,6 +28,8 @@ public class TestService {
 
     private final TestJpaRepository testJpaRepository;
     private final TestPagingAndSortingRepository testPagingAndSortingRepository;
+
+    private final AreaService areaService;
 
     public Test findById(Long aLong) {
         return testJpaRepository.findById(aLong).orElseThrow(() ->
@@ -50,22 +55,32 @@ public class TestService {
         return testPagingAndSortingRepository.findAll(spec, PageRequest.of(offset, limit));
     }
 
+    public Optional<Test> findByTitle(String title) {
+        return testJpaRepository.findByTitle(title);
+    }
+
     @Transactional
     public <S extends Test> S save(S entity) {
 
-        Long id = entity.getId();
+        entity.setApplicableAreas(entity.getApplicableAreas().stream().map(area -> {
 
-        // TODO extract to validator
-//        if (testJpaRepository.findById(id).isPresent()) {
-//            throw new BadRequestException("Test with id %d is already exists".formatted(id));
-//        }
+            Area byId;
+
+            try {
+                byId = areaService.findById(area.getId());
+                byId.getApplicableTests().add(entity);
+            } catch (Exception e) {
+                throw new BadRequestException("Area with such id does not exist");
+            }
+
+            return byId;
+        }).collect(Collectors.toSet()));
 
         return testJpaRepository.save(entity);
     }
 
     @Transactional
     public <S extends Test> S update(S entity) {
-        return testJpaRepository.save(entity);
+        return save(entity);
     }
-
 }
