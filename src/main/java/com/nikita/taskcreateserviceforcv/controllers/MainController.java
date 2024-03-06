@@ -4,11 +4,13 @@ import com.nikita.taskcreateserviceforcv.DTOs.ExceptionDTO;
 import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,6 +50,16 @@ public abstract class MainController {
         return ResponseEntity
                 .status(e.getStatusCode())
                 .body(new ExceptionDTO(e.getStatusCode().toString(), e.getMessage().trim()));
+    }
+
+    @ExceptionHandler
+    protected ResponseEntity<ExceptionDTO> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+
+        String message = "Invalid value %s in parameter %s".formatted(e.getValue(), e.getName());
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ExceptionDTO("BAD_REQUEST 400", message));
     }
 
 
