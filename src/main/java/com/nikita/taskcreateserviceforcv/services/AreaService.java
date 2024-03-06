@@ -55,9 +55,9 @@ public class AreaService {
         Long id = entity.getId();
 
         // TODO extract to validator
-        if (areaJpaRepository.findById(id).isPresent()) {
-            throw new BadRequestException("Area with id %d is already exists".formatted(id));
-        }
+//        if (areaJpaRepository.findById(id).isPresent()) {
+//            throw new BadRequestException("Area with id %d is already exists".formatted(id));
+//        }
 
         return areaJpaRepository.save(entity);
     }
