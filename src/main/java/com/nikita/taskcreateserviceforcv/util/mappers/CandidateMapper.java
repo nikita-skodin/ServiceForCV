@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class CandidateMapper {
+public class CandidateMapper implements Mappable<Candidate, CandidateDTO> {
 
     private final AreaMapper areaMapper;
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CandidateTestMapper {
+public class CandidateTestMapper implements Mappable<CandidateTest, CandidateTestDTO> {
 
     private final TestMapper testMapper;
     private final CandidateMapper candidateMapper;

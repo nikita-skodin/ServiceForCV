@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AreaMapper {
+public class AreaMapper implements Mappable<Area, AreaDTO> {
 
     private final ModelMapper modelMapper = new ModelMapper();
 

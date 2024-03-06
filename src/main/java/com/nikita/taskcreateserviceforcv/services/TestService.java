@@ -4,8 +4,9 @@ import com.nikita.taskcreateserviceforcv.entities.Area;
 import com.nikita.taskcreateserviceforcv.entities.Test;
 import com.nikita.taskcreateserviceforcv.exceptions.BadRequestException;
 import com.nikita.taskcreateserviceforcv.exceptions.NotFoundException;
-import com.nikita.taskcreateserviceforcv.repositories.TestJpaRepository;
-import com.nikita.taskcreateserviceforcv.repositories.TestPagingAndSortingRepository;
+import com.nikita.taskcreateserviceforcv.repositories.testRepositories.TestJpaRepository;
+import com.nikita.taskcreateserviceforcv.repositories.testRepositories.TestPagingAndSortingRepository;
+import com.nikita.taskcreateserviceforcv.services.interfaces.JpaService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -17,27 +18,23 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class TestService {
+public class TestService implements JpaService<Test, Long> {
+
+    private final AreaService areaService;
 
     private final TestJpaRepository testJpaRepository;
     private final TestPagingAndSortingRepository testPagingAndSortingRepository;
 
-    private final AreaService areaService;
 
     public Test findById(Long aLong) {
         return testJpaRepository.findById(aLong).orElseThrow(() ->
                 new NotFoundException("Test with id %d not found".formatted(aLong)));
-    }
-
-    public List<Test> findAll() {
-        return testJpaRepository.findAll();
     }
 
     public Page<Test> findAll(Integer offset, Integer limit, String keyword) {

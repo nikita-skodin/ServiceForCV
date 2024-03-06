@@ -1,4 +1,4 @@
-package com.nikita.taskcreateserviceforcv.repositories;
+package com.nikita.taskcreateserviceforcv.repositories.testRepositories;
 
 import com.nikita.taskcreateserviceforcv.entities.Test;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

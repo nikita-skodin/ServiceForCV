@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class TestMapper {
+public class TestMapper implements Mappable<Test, TestDTO> {
 
     private final ModelMapper modelMapper = new ModelMapper();
     private final AreaMapper areaMapper;
