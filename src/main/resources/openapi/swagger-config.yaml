@@ -1,0 +1,680 @@
+openapi: 3.0.1
+
+info:
+  title: Service for CV definition
+  description: Documentation for Service for CV API
+  version: v1.0
+servers:
+  - url: http://localhost:8085
+    description: Generated server url
+tags:
+  - name: Area
+    description: Area operations
+  - name: Test
+    description: Test operations
+  - name: Candidate
+    description: Candidate operations
+  - name: CandidateTest
+    description: CandidateTest operations
+paths:
+  /api/tests:
+    get:
+      tags:
+        - Test
+      summary: Get tests
+      description: Get set of TestDTO
+      operationId: getAll
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 0
+          example: 0
+        - name: limit
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int32
+            default: 20
+          example: 20
+        - name: keyword
+          in: query
+          description: Keyword for finding items
+          required: false
+          schema:
+            type: string
+          example: 20
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+    put:
+      tags:
+        - Test
+      summary: Update an test
+      description: Update existing or create new test
+      operationId: update
+      requestBody:
+        description: empty JSON TestDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TestDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+    post:
+      tags:
+        - Test
+      summary: Create new test
+      description: Create new test
+      operationId: create
+      requestBody:
+        description: empty JSON TestDTO without id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TestDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/candidates_tests:
+    get:
+      tags:
+        - CandidateTest
+      summary: Get candidateTest
+      description: Get set of CandidateTestDTO
+      operationId: getAll_1
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 0
+          example: 0
+        - name: limit
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int32
+            default: 20
+          example: 20
+        - name: test_id
+          in: query
+          description: Test id for filtering
+          required: false
+          schema:
+            type: string
+          example: 20
+        - name: candidate_id
+          in: query
+          description: Candidate id for filtering
+          required: false
+          schema:
+            type: string
+          example: 20
+        - name: sorted_by_data
+          in: query
+          description: "Boolean flag, do it need to sort by data"
+          required: false
+          schema:
+            type: string
+            default: "false"
+          example: true
+        - name: sorted_by_score
+          in: query
+          description: "Boolean flag, do it need to sort by score"
+          required: false
+          schema:
+            type: string
+            default: "false"
+          example: true
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+    put:
+      tags:
+        - CandidateTest
+      summary: Update an candidateTest
+      description: Update existing or create new candidateTest
+      operationId: update_1
+      requestBody:
+        description: empty JSON CandidateTestDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateTestDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CandidateTestDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+    post:
+      tags:
+        - CandidateTest
+      summary: Create new candidateTest
+      description: Create new candidateTest
+      operationId: create_1
+      requestBody:
+        description: empty JSON CandidateTestDTO without id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateTestDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CandidateTestDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/candidates:
+    get:
+      tags:
+        - Candidate
+      summary: Get candidates
+      description: Get set of CandidateDTO
+      operationId: getAll_2
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 0
+          example: 0
+        - name: limit
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int32
+            default: 20
+          example: 20
+        - name: keyword
+          in: query
+          description: Keyword for finding items
+          required: false
+          schema:
+            type: string
+          example: candidate
+        - name: sorted
+          in: query
+          description: "Boolean flag, do it need to sort by lastname"
+          required: false
+          schema:
+            type: string
+            default: "false"
+          example: true
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+    put:
+      tags:
+        - Candidate
+      summary: Update a candidate
+      description: Update existing or create new candidate
+      operationId: update_2
+      requestBody:
+        description: empty JSON CandidateDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CandidateDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+    post:
+      tags:
+        - Candidate
+      summary: Create new candidate
+      description: Create new candidate
+      operationId: create_2
+      requestBody:
+        description: empty JSON candidateDTO without id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CandidateDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/areas:
+    get:
+      tags:
+        - Area
+      summary: Get areas
+      description: Get set of AreaDTO
+      operationId: getAll_3
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            format: int32
+            default: 0
+          example: 0
+        - name: limit
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            format: int32
+            default: 20
+          example: 20
+        - name: keyword
+          in: query
+          description: Keyword for finding items
+          required: false
+          schema:
+            type: string
+          example: 20
+      responses:
+        "200":
+          description: Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+    put:
+      tags:
+        - Area
+      summary: Update an area
+      description: Update existing or create new area
+      operationId: update_3
+      requestBody:
+        description: empty JSON AreaDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AreaDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AreaDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+    post:
+      tags:
+        - Area
+      summary: Create new area
+      description: Create new area
+      operationId: create_3
+      requestBody:
+        description: empty JSON AreaDTO without id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AreaDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AreaDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+components:
+  schemas:
+    TestDTO:
+      required:
+        - title
+      type: object
+      properties:
+        id:
+          title: test`s id
+          type: integer
+          format: int64
+          example: 1
+        title:
+          title: test`s title
+          maxLength: 50
+          minLength: 3
+          type: string
+          example: Java core
+        description:
+          title: test`s description
+          maxLength: 1000
+          minLength: 0
+          type: string
+          example: Basic knowledge in Java core
+        applicable_areas:
+          title: set of applicable areas
+          required:
+            - title
+          type: object
+          properties:
+            id:
+              title: area`s id
+              type: integer
+              format: int64
+              example: 1
+            title:
+              title: area`s title
+              maxLength: 50
+              minLength: 3
+              type: string
+              example: Backend-Java
+            description:
+              title: area`s description
+              maxLength: 1000
+              minLength: 0
+              type: string
+              example: Development of microservices in java/spring
+          description: DTO for representing an area
+      description: DTO for representing an test
+    ExceptionDTO:
+      type: object
+      properties:
+        Error cause:
+          title: exception description
+          type: string
+          example: "404"
+        Error message:
+          title: exception message
+          type: string
+          example: Not found
+      description: DTO for representing an exception
+    CandidateTestDTO:
+      required:
+        - candidate
+        - date_of_passing
+        - score
+        - test
+      type: object
+      properties:
+        id:
+          title: candidateTest`s id
+          type: integer
+          format: int64
+          example: 1
+        candidate:
+          $ref: '#/components/schemas/CandidateDTO'
+        test:
+          $ref: '#/components/schemas/TestDTO'
+        score:
+          title: candidates score
+          type: integer
+          format: int32
+          example: 80
+        date_of_passing:
+          title: date of test passing
+          type: string
+          format: date
+          example: 2024-02-06
+      description: DTO for representing an candidateTest
+    CandidateDTO:
+      required:
+        - lastname
+        - name
+        - patronymic
+      type: object
+      properties:
+        id:
+          title: candidate`s id
+          type: integer
+          format: int64
+          example: 1
+        name:
+          title: candidate`s name
+          maxLength: 20
+          minLength: 1
+          type: string
+          example: Nikita
+        lastname:
+          title: candidate`s lastname
+          maxLength: 20
+          minLength: 1
+          type: string
+          example: Skodin
+        patronymic:
+          title: candidate`s patronymic
+          maxLength: 20
+          minLength: 1
+          type: string
+          example: Dmitrievich
+        photo:
+          title: candidate`s photo
+          type: array
+          example: SGVsbG8sIFdvcmxkIQ==
+          items:
+            title: candidate`s photo
+            type: string
+            format: byte
+            example: U0dWc2JHOHNJRmR2Y214a0lRPT0=
+        description:
+          title: candidate`s description
+          maxLength: 1000
+          minLength: 0
+          type: string
+          example: "Java/Spring developer, 3 years of experience"
+        cvFile:
+          title: candidate`s cvFile
+          type: array
+          example: SGVsbG8sIFdvcmxkIQ==
+          items:
+            title: candidate`s cvFile
+            type: string
+            format: byte
+            example: U0dWc2JHOHNJRmR2Y214a0lRPT0=
+        possible_areas:
+          title: set of possible areas
+          required:
+            - title
+          type: object
+          properties:
+            id:
+              title: area`s id
+              type: integer
+              format: int64
+              example: 1
+            title:
+              title: area`s title
+              maxLength: 50
+              minLength: 3
+              type: string
+              example: Backend-Java
+            description:
+              title: area`s description
+              maxLength: 1000
+              minLength: 0
+              type: string
+              example: Development of microservices in java/spring
+          description: DTO for representing an area
+      description: DTO for representing an candidate
+    AreaDTO:
+      required:
+        - title
+      type: object
+      properties:
+        id:
+          title: area`s id
+          type: integer
+          format: int64
+          example: 1
+        title:
+          title: area`s title
+          maxLength: 50
+          minLength: 3
+          type: string
+          example: Backend-Java
+        description:
+          title: area`s description
+          maxLength: 1000
+          minLength: 0
+          type: string
+          example: Development of microservices in java/spring
+      description: DTO for representing an area
+    Page:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            type: object
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
