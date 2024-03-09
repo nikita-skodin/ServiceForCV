@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "852c91b3-f7af-46ea-ac89-206f32cf8c24",
+		"name": "Service For CV Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30289563"
+	},
+	"item": [
+		{
+			"name": "Areas",
+			"item": [
+				{
+					"name": "GetAllAreas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8085/api/areas?offset=2&limit=2&keyword=Area5",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"areas"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "keyword",
+									"value": "Area5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateArea",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : 15,\n    \"title\": \"qoo\",\n    \"description\" : \"deschj\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8085/api/areas"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateArea",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"title1\",\n    \"description\": \"Description for Area1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8085/api/areas"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "GetAllTests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8085/api/tests?offset=0&limit=5&keyword=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"tests"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "keyword",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTests",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 13,\n    \"title\": \"Test11980\",\n    \"description\": \"Description for Test5\",\n    \"applicableAreas\": [\n        {\n            \"id\": 5,\n            \"title\": \"Area5\",\n            \"description\": \"Description for Area5\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8085/api/tests"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n           \n            \"title\": \"Test11980\",\n            \"description\": \"Description for Test5\",\n            \"applicableAreas\": [\n                {\n                    \"id\": 5,\n                    \"title\": \"Area5\",\n                    \"description\": \"Description for Area5\"\n                }\n            ]\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8085/api/tests"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Candidates",
+			"item": [
+				{
+					"name": "GetAllCandidates",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8085/api/candidates?offset=0&limit=10&sorted=true&keyword=a",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"candidates"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sorted",
+									"value": "true"
+								},
+								{
+									"key": "keyword",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCandidate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "postman-cloud:///1eede431-e302-41b0-96a8-7d96e1a03b70"
+								},
+								{
+									"key": "candidateDTO",
+									"type": "file",
+									"src": "postman-cloud:///1eede434-d4a1-45a0-9413-a012fc9a64ff"
+								},
+								{
+									"key": "cv_file",
+									"type": "file",
+									"src": "postman-cloud:///1eede431-fc12-41f0-a0d9-804942205b84"
+								}
+							]
+						},
+						"url": "localhost:8085/api/candidates"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCandidate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "postman-cloud:///1eede431-e302-41b0-96a8-7d96e1a03b70"
+								},
+								{
+									"key": "cv_file",
+									"type": "file",
+									"src": "postman-cloud:///1eede431-fc12-41f0-a0d9-804942205b84"
+								},
+								{
+									"key": "candidateDTO",
+									"type": "file",
+									"src": "postman-cloud:///1eede434-d4a1-45a0-9413-a012fc9a64ff"
+								}
+							]
+						},
+						"url": "localhost:8085/api/candidates"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CandidatesTests",
+			"item": [
+				{
+					"name": "GetAllCandidatesTests",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8085/api/candidates_tests?offset=0&limit=2&test_id=4&candidate_id=4d&sorted_by_data=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"candidates_tests"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "test_id",
+									"value": "4"
+								},
+								{
+									"key": "candidate_id",
+									"value": "4d"
+								},
+								{
+									"key": "sorted_by_data",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCandidateTest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 12,\n    \"candidate\": {\n        \"id\": 4,\n        \"lastname\": \"Lastname4\",\n        \"patronymic\": \"Patronymic4\",\n        \"photo\": \"ASNFZ4mrze8=\",\n        \"description\": \"Description for Candidate4\",\n        \"cvFile\": \"ASNFZ4mrze8=\",\n        \"possibleAreas\": [\n            {\n                \"id\": 14,\n                \"title\": \"Area4\",\n                \"description\": \"Description for Area4\"\n            }\n        ]\n    },\n    \"test\": {\n        \"id\": 4,\n        \"title\": \"Test4\",\n        \"description\": \"Description for Test4\",\n        \"applicableAreas\": [\n            {\n                \"id\": 4,\n                \"title\": \"Area4\",\n                \"description\": \"Description for Area4\"\n            }\n        ]\n    },\n    \"score\": 80,\n    \"date_of_passing\": \"2024-02-06\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8085/api/candidates_tests"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCandidateTest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n            \"candidate\": {\n                \"id\": 4\n            },\n            \"test\": {\n                \"id\": 4\n            },\n            \"score\": 80,\n            \"date_of_passing\": \"2024-07-06\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8085/api/candidates_tests"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

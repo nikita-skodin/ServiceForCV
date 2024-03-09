@@ -11,7 +11,6 @@ volumes:
     driver: local
 
 services:
-
   app:
     build:
       context: .
@@ -30,8 +29,9 @@ services:
     networks:
       - app-network
     volumes:
-#      - ./src/main/resources/db-init:/docker-entrypoint-initdb.d
       - db-data:/var/lib/postgresql/data
+      - ./postgresql.conf:/home/nikita/Desktop/ResumeProjects/TaskCreateServiceForCV/postgresql.conf
+      - ./pg_hba.conf:/home/nikita/Desktop/ResumeProjects/TaskCreateServiceForCV/pg_hba.conf
     ports:
       - 5432:5432
     environment:

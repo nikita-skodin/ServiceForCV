@@ -6,7 +6,7 @@ spring:
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/ServiceForCv-db
+    url: jdbc:postgresql://ServiceForCv-postgres16:5432/ServiceForCv-db
 
   sql:
     init:
@@ -21,4 +21,10 @@ spring:
         format_sql: true
 
   flyway:
-    enabled: false
+    enabled: true
+
+minio:
+  bucket: files
+  url: http://minio:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
