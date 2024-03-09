@@ -55,11 +55,12 @@ public class AreaController extends MainController {
         return ResponseEntity.ok(areaMapper.getDTO(savedArea));
     }
 
-    @PutMapping
-    public ResponseEntity<AreaDTO> update(@Valid @RequestBody AreaDTO areaDTO, BindingResult bindingResult) {
-        if (areaDTO.getId() == null) {
-            throw new BadRequestException("Updatable area must has an id");
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<AreaDTO> update(
+            @PathVariable Long id,
+            @Valid @RequestBody AreaDTO areaDTO, BindingResult bindingResult) {
+
+        areaDTO.setId(id);
 
         Area area = areaMapper.getEntity(areaDTO);
 

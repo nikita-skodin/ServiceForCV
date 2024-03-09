@@ -71,14 +71,13 @@ public class CandidateController extends MainController {
         return ResponseEntity.ok(candidateMapper.getDTO(savedCandidate));
     }
 
-    @PutMapping
-    public ResponseEntity<CandidateDTO> update(@RequestPart("photo") MultipartFile photo,
+    @PutMapping("/{id}")
+    public ResponseEntity<CandidateDTO> update(@PathVariable Long id,
+                                               @RequestPart("photo") MultipartFile photo,
                                                @RequestPart("cv_file") MultipartFile cvFile,
                                                @Valid @RequestPart("candidateDTO") CandidateDTO candidateDTO) {
 
-        if (candidateDTO.getId() == null) {
-            throw new BadRequestException("Updatable Candidate must has an id");
-        }
+        candidateDTO.setId(id);
 
         Candidate candidate = candidateMapper.getEntity(candidateDTO);
 

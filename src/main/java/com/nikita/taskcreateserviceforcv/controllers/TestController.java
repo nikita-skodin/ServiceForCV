@@ -62,12 +62,11 @@ public class TestController extends MainController {
         return ResponseEntity.ok(testMapper.getDTO(savedTest));
     }
 
-    @PutMapping
-    public ResponseEntity<TestDTO> update(@Valid @RequestBody TestDTO testDTO, BindingResult bindingResult) {
+    @PutMapping("/{id}")
+    public ResponseEntity<TestDTO> update(@PathVariable Long id,
+                                          @Valid @RequestBody TestDTO testDTO, BindingResult bindingResult) {
 
-        if (testDTO.getId() == null) {
-            throw new BadRequestException("Updatable test must has an id");
-        }
+        testDTO.setId(id);
 
         Test test = testMapper.getEntity(testDTO);
 

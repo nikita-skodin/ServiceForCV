@@ -1,7 +1,8 @@
 # Candidate Management Service
 
-This service allows you to manage candidates, directions, and tests. It is built using Java Spring Boot, 
-PostgreSQL database, FlyWay for Data Base migration, Log4j2 for logging, Minio for file storage and Swagger for API documentation.
+This service allows you to manage candidates, directions, and tests. It is built using Java Spring Boot,
+PostgreSQL database, FlyWay for Data Base migration, Log4j2 for logging, Minio for file storage and Swagger for API
+documentation.
 
 ## Setup
 
@@ -36,7 +37,8 @@ PostgreSQL database, FlyWay for Data Base migration, Log4j2 for logging, Minio f
 
 ## Database Migration
 
-The service includes database migration scripts to set up the initial database schema. These scripts are executed automatically when the service starts.
+The service includes database migration scripts to set up the initial database schema. These scripts are executed
+automatically when the service starts.
 
 ## Swagger Documentation
 

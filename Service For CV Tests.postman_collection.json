@@ -56,7 +56,7 @@
 								}
 							}
 						},
-						"url": "localhost:8085/api/areas"
+						"url": "localhost:8085/api/areas/15"
 					},
 					"response": []
 				},
@@ -142,7 +142,7 @@
 								}
 							}
 						},
-						"url": "localhost:8085/api/tests"
+						"url": "localhost:8085/api/tests/13"
 					},
 					"response": []
 				},
@@ -272,7 +272,7 @@
 								}
 							]
 						},
-						"url": "localhost:8085/api/candidates"
+						"url": "localhost:8085/api/candidates/6"
 					},
 					"response": []
 				}
@@ -348,7 +348,7 @@
 								}
 							}
 						},
-						"url": "localhost:8085/api/candidates_tests"
+						"url": "localhost:8085/api/candidates_tests/6"
 					},
 					"response": []
 				},

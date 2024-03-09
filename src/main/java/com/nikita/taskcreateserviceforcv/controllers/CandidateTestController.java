@@ -73,12 +73,11 @@ public class CandidateTestController extends MainController {
         return ResponseEntity.ok(candidateTestMapper.getDTO(savedCandidateTest));
     }
 
-    @PutMapping
-    public ResponseEntity<CandidateTestDTO> update(@Valid @RequestBody CandidateTestDTO candidateTestDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<CandidateTestDTO> update(@PathVariable Long id,
+                                                   @Valid @RequestBody CandidateTestDTO candidateTestDTO) {
 
-        if (candidateTestDTO.getId() == null) {
-            throw new BadRequestException("Updatable CandidateTest must has an id");
-        }
+        candidateTestDTO.setId(id);
 
         CandidateTest candidateTest = candidateTestMapper.getEntity(candidateTestDTO);
 

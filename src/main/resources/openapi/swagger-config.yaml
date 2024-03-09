@@ -60,32 +60,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Page'
-    put:
-      tags:
-        - Test
-      summary: Update an test
-      description: Update existing or create new test
-      operationId: update
-      requestBody:
-        description: empty JSON TestDTO with id
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TestDTO'
-        required: true
-      responses:
-        "200":
-          description: Successfully updated
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/TestDTO'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExceptionDTO'
     post:
       tags:
         - Test
@@ -102,6 +76,40 @@ paths:
       responses:
         "200":
           description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TestDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/tests/{id}:
+    put:
+      tags:
+        - Test
+      summary: Update an test
+      description: Update existing or create new test
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          description: ID of the test to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: empty JSON TestDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
           content:
             '*/*':
               schema:
@@ -178,32 +186,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Page'
-    put:
-      tags:
-        - CandidateTest
-      summary: Update an candidateTest
-      description: Update existing or create new candidateTest
-      operationId: update_1
-      requestBody:
-        description: empty JSON CandidateTestDTO with id
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CandidateTestDTO'
-        required: true
-      responses:
-        "200":
-          description: Successfully updated
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/CandidateTestDTO'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExceptionDTO'
     post:
       tags:
         - CandidateTest
@@ -220,6 +202,40 @@ paths:
       responses:
         "200":
           description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CandidateTestDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/candidates_tests/{id}:
+    put:
+      tags:
+        - CandidateTest
+      summary: Update an candidateTest
+      description: Update existing or create new candidateTest
+      operationId: update_1
+      parameters:
+        - name: id
+          in: path
+          description: ID of the candidati test to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: empty JSON CandidateTestDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateTestDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
           content:
             '*/*':
               schema:
@@ -281,32 +297,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Page'
-    put:
-      tags:
-        - Candidate
-      summary: Update a candidate
-      description: Update existing or create new candidate
-      operationId: update_2
-      requestBody:
-        description: empty JSON CandidateDTO with id
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CandidateDTO'
-        required: true
-      responses:
-        "200":
-          description: Successfully updated
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/CandidateDTO'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExceptionDTO'
     post:
       tags:
         - Candidate
@@ -323,6 +313,40 @@ paths:
       responses:
         "200":
           description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CandidateDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/candidates/{id}:
+    put:
+      tags:
+        - Candidate
+      summary: Update a candidate
+      description: Update existing or create new candidate
+      operationId: update_2
+      parameters:
+        - name: id
+          in: path
+          description: ID of the candidate to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: empty JSON CandidateDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
           content:
             '*/*':
               schema:
@@ -376,32 +400,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Page'
-    put:
-      tags:
-        - Area
-      summary: Update an area
-      description: Update existing or create new area
-      operationId: update_3
-      requestBody:
-        description: empty JSON AreaDTO with id
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AreaDTO'
-        required: true
-      responses:
-        "200":
-          description: Successfully updated
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/AreaDTO'
-        "400":
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExceptionDTO'
     post:
       tags:
         - Area
@@ -418,6 +416,40 @@ paths:
       responses:
         "200":
           description: Successfully created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AreaDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionDTO'
+  /api/areas/{id}:
+    put:
+      tags:
+        - Area
+      summary: Update an area
+      description: Update existing or create new area
+      operationId: update_3
+      parameters:
+        - name: id
+          in: path
+          description: ID of the area to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: empty JSON AreaDTO with id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AreaDTO'
+        required: true
+      responses:
+        "200":
+          description: Successfully updated
           content:
             '*/*':
               schema:
