@@ -26,14 +26,9 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NotBlank(message = "title must not be blank")
-    @Size(min = 3, max = 50,
-            message = "title`s length must be between 3 and 50 chars")
     @Column(nullable = false)
     String title;
 
-    @Size(max = 1000,
-            message = "description`s length must be less than 1000 chars")
     String description;
 
     @ManyToMany

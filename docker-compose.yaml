@@ -1,12 +1,55 @@
 version: '3.8'
 
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
+  minio-data:
+    driver: local
+
 services:
-  postgres:
+
+  app:
+    build:
+      context: .
+    container_name: serviceForCv
+    networks:
+      - app-network
+    depends_on:
+      - db
+      - minio
+    ports:
+      - '8085:8085'
+
+  db:
     image: 'postgres:16'
     container_name: 'ServiceForCv-postgres16'
+    networks:
+      - app-network
+    volumes:
+#      - ./src/main/resources/db-init:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
       - 'POSTGRES_DB=ServiceForCv-db'
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    networks:
+      - app-network
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server ~/minio --console-address :9090
+    ports:
+      - '9090:9090'
+      - '9000:9000'
+    volumes:
+      - minio-data:/minio

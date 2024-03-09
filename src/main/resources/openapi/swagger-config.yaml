@@ -548,14 +548,9 @@ components:
           type: string
           example: Dmitrievich
         photo:
-          title: candidate`s photo
-          type: array
-          example: SGVsbG8sIFdvcmxkIQ==
-          items:
-            title: candidate`s photo
-            type: string
-            format: byte
-            example: U0dWc2JHOHNJRmR2Y214a0lRPT0=
+          title: candidate`s photo name
+          type: string
+          example: e5152006-a15c-4e3c-aa96-63f18a757545.png
         description:
           title: candidate`s description
           maxLength: 1000
@@ -563,14 +558,9 @@ components:
           type: string
           example: "Java/Spring developer, 3 years of experience"
         cvFile:
-          title: candidate`s cvFile
-          type: array
-          example: SGVsbG8sIFdvcmxkIQ==
-          items:
-            title: candidate`s cvFile
-            type: string
-            format: byte
-            example: U0dWc2JHOHNJRmR2Y214a0lRPT0=
+          title: candidate`s cvFile name
+          type: string
+          example: e5152006-a15c-4e3c-aa96-63f18a757545.pdf
         possible_areas:
           title: set of possible areas
           required:

@@ -1,7 +1,6 @@
 package com.nikita.taskcreateserviceforcv.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -32,15 +31,14 @@ public class CandidateDTO {
             message = "patronymic`s length must be between 1 and 20 chars")
     String patronymic;
 
-    // TODO
-    byte[] photo;
+    String photo;
 
     @Size(max = 1000,
             message = "description`s length must be less than 1000 chars")
     String description;
 
-    // TODO
-    byte[] cvFile;
+    @JsonProperty(value = "cv_file")
+    String cvFile;
 
     @JsonProperty("possible_areas")
     Set<AreaDTO> possibleAreas = new HashSet<>();

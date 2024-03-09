@@ -24,33 +24,20 @@ public class Candidate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NotBlank(message = "name must not be empty")
-    @Size(min = 1, max = 20,
-            message = "name`s length must be between 1 and 20 chars")
     @Column(nullable = false)
     String name;
 
-    @NotBlank(message = "lastname must not be empty")
-    @Size(min = 1, max = 20,
-            message = "lastname`s length must be between 1 and 20 chars")
     @Column(nullable = false)
     String lastname;
 
-    @NotBlank(message = "patronymic must not be empty")
-    @Size(min = 1, max = 20,
-            message = "patronymic`s length must be between 1 and 20 chars")
     @Column(nullable = false)
     String patronymic;
 
-    // TODO
-    byte[] photo;
+    String photo;
 
-    @Size(max = 1000,
-            message = "description`s length must be less than 1000 chars")
     String description;
 
-    // TODO
-    byte[] cvFile;
+    String cvFile;
 
     @ManyToMany
     @JoinTable(

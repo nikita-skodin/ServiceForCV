@@ -26,11 +26,9 @@ public class CandidateTest {
     @JoinColumn(name = "test_id", nullable = false)
     Test test;
 
-    @NotNull
     @Column(name = "date_of_passing", columnDefinition = "DATE DEFAULT CURRENT_DATE", nullable = false)
     LocalDate dateOfPassing;
 
-    @NotNull
     @Column(nullable = false)
     Integer score;
 }

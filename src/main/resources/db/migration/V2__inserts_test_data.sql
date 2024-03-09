@@ -16,16 +16,17 @@ VALUES ('Test1', 'Description for Test1'),
 
 -- Вставка в таблицу candidates
 INSERT INTO candidates (lastname, name, patronymic, description, cv_file, photo)
-VALUES ('Lastname1', 'Name1', 'Patronymic1', 'Description for Candidate1', E'\\x0123456789ABCDEF',
-        E'\\x0123456789ABCDEF'),
-       ('Lastname2', 'Name2', 'Patronymic2', 'Description for Candidate2', E'\\x0123456789ABCDEF',
-        E'\\x0123456789ABCDEF'),
-       ('Lastname3', 'Name3', 'Patronymic3', 'Description for Candidate3', E'\\x0123456789ABCDEF',
-        E'\\x0123456789ABCDEF'),
-       ('Lastname4', 'Name4', 'Patronymic4', 'Description for Candidate4', E'\\x0123456789ABCDEF',
-        E'\\x0123456789ABCDEF'),
-       ('Lastname5', 'Name5', 'Patronymic5', 'Description for Candidate5', E'\\x0123456789ABCDEF',
-        E'\\x0123456789ABCDEF');
+VALUES ('Lastname1', 'Name1', 'Patronymic1', 'Description for Candidate1',
+        'cv_file1.pdf', 'photo1.jpg'),
+       ('Lastname2', 'Name2', 'Patronymic2', 'Description for Candidate2',
+        'cv_file2.pdf', 'photo2.jpg'),
+       ('Lastname3', 'Name3', 'Patronymic3', 'Description for Candidate3',
+        'cv_file3.pdf', 'photo3.jpg'),
+       ('Lastname4', 'Name4', 'Patronymic4', 'Description for Candidate4',
+        'cv_file4.pdf', 'photo4.jpg'),
+       ('Lastname5', 'Name5', 'Patronymic5', 'Description for Candidate5',
+        'cv_file5.pdf', 'photo5.jpg');
+
 
 -- Вставка в таблицу candidates_tests
 INSERT INTO candidates_tests (candidate_id, test_id, date_of_passing, score)

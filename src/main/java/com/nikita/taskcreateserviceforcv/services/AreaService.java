@@ -10,6 +10,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -51,11 +53,15 @@ public class AreaService implements JpaService<Area, Long> {
 
     @Transactional
     public <S extends Area> S save(S entity) {
+
+        log.info("saving {}", entity);
         return areaJpaRepository.save(entity);
     }
 
     @Transactional
     public <S extends Area> S update(S entity) {
+
+        log.info("updating {}", entity);
         return areaJpaRepository.save(entity);
     }
 }

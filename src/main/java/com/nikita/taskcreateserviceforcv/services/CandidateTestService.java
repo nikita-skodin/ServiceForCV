@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Log4j2
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -85,6 +87,7 @@ public class CandidateTestService implements JpaService<CandidateTest, Long> {
         test.getAttemptsList().add(entity);
         candidate.getCandidateTests().add(entity);
 
+        log.info("saving {}", entity);
         return candidateTestJpaRepository.save(entity);
     }
 
@@ -97,6 +100,7 @@ public class CandidateTestService implements JpaService<CandidateTest, Long> {
         test.getAttemptsList().add(entity);
         candidate.getCandidateTests().add(entity);
 
+        log.info("updating {}", entity);
         return candidateTestJpaRepository.save(entity);
     }
 }

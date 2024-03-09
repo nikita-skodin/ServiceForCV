@@ -22,8 +22,8 @@ create table candidates
     name        varchar(20) not null,
     patronymic  varchar(20) not null,
     description varchar(1000),
-    cv_file     bytea,
-    photo       bytea
+    cv_file     varchar(100),
+    photo       varchar(100)
 );
 
 create table candidates_tests
